@@ -10,4 +10,8 @@ public class AplicacionfxBackendApplication {
 		SpringApplication.run(AplicacionfxBackendApplication.class, args);
 	}
 
+	public static void prueba(){
+
+	}
+
 }
