@@ -3,6 +3,7 @@ package com.aplicacion.backend.aplicacionfx_backend.servicio;
 import com.aplicacion.backend.aplicacionfx_backend.modelo.Usuario;
 import com.aplicacion.backend.aplicacionfx_backend.repositorio.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Optional;
 @Service
 public class UsuarioServiceBackend {
     private final UsuarioRepository usuarioRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     // Inyección de dependencias del repositorio en el constructor
@@ -36,7 +39,15 @@ public class UsuarioServiceBackend {
         // - Validar el email
         // - Hashear la contraseña si no viene hasheada (¡muy importante!)
         // - Asignar roles por defecto
+        String hashedPassword = passwordEncoder.encode(usuario.getPasswordHash());
+        usuario.setPasswordHash(hashedPassword);
+
         return usuarioRepository.save(usuario);
+    }
+
+    // Verificar contraseña durante el inicio de sesión
+    public boolean verificaContraseña(String contrasenaPlana, String contrasenaHasheadaAlmacenada){
+        return passwordEncoder.matches(contrasenaPlana, contrasenaHasheadaAlmacenada);
     }
 
     // Eliminar un usuario por ID
