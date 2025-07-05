@@ -76,5 +76,5 @@ public class UsuarioControllerBackend {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Devuelve 404 Not Found si no existe
     }
 
-
+    
 }

@@ -47,6 +47,7 @@ public class UsuarioServiceBackend {
 
     // Verificar contraseña durante el inicio de sesión
     public boolean verificaContraseña(String contrasenaPlana, String contrasenaHasheadaAlmacenada){
+
         return passwordEncoder.matches(contrasenaPlana, contrasenaHasheadaAlmacenada);
     }
 
